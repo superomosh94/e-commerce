@@ -17,21 +17,20 @@
         --gray: #6c757d;
         --white: #ffffff;
         --pastel: #e3f2fd;
+        --success: #4caf50;
+        --warning: #ffc107;
       }
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
       }
-
       body {
         background-color: var(--light);
         color: var(--dark);
         line-height: 1.6;
       }
-
       .container {
         width: 100%;
         max-width: 1200px;
@@ -47,45 +46,37 @@
         top: 0;
         z-index: 100;
       }
-
       nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 0;
       }
-
       .logo {
         font-size: 24px;
         font-weight: 700;
         color: var(--primary);
         text-decoration: none;
       }
-
       .logo span {
         color: var(--secondary);
       }
-
       .nav-links {
         display: flex;
         gap: 30px;
       }
-
       .nav-links a {
         text-decoration: none;
         color: var(--dark);
         font-weight: 500;
         transition: color 0.3s;
       }
-
       .nav-links a:hover {
         color: var(--primary);
       }
-
       .cart-icon {
         position: relative;
       }
-
       .cart-count {
         position: absolute;
         top: -10px;
@@ -101,24 +92,32 @@
         font-size: 12px;
       }
 
-      /* Cart */
+      /* Main Cart Layout */
       .cart-page {
         margin: 40px 0;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
       }
-
+      @media (max-width: 768px) {
+        .cart-page {
+          grid-template-columns: 1fr;
+        }
+      }
       .cart-title {
         font-size: 28px;
         margin-bottom: 30px;
         color: var(--secondary);
+        grid-column: 1 / -1;
       }
 
+      /* Cart Items Section */
       .cart-items {
         background-color: var(--white);
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       }
-
       .cart-item {
         display: flex;
         flex-direction: column;
@@ -126,52 +125,43 @@
         padding: 20px 0;
         border-bottom: 1px solid #eee;
       }
-
       @media (min-width: 768px) {
         .cart-item {
           flex-direction: row;
           align-items: center;
         }
       }
-
       .cart-item:last-child {
         border-bottom: none;
       }
-
       .item-image {
         width: 100px;
         height: 100px;
         object-fit: cover;
         border-radius: 5px;
       }
-
       .item-details {
         flex: 1;
       }
-
       .item-name {
         font-size: 18px;
         font-weight: 500;
         margin-bottom: 5px;
       }
-
       .item-price {
         color: var(--primary);
         font-weight: 600;
       }
-
       .item-actions {
         display: flex;
         align-items: center;
         gap: 15px;
       }
-
       .quantity-control {
         display: flex;
         align-items: center;
         gap: 10px;
       }
-
       .quantity-btn {
         width: 30px;
         height: 30px;
@@ -183,12 +173,10 @@
         justify-content: center;
         align-items: center;
       }
-
       .item-quantity {
         width: 40px;
         text-align: center;
       }
-
       .remove-item {
         background-color: #ffebee;
         color: #f44336;
@@ -199,70 +187,144 @@
         font-size: 14px;
       }
 
-      .cart-summary {
-        margin-top: 30px;
+      /* Order Summary Section */
+      .order-summary {
         background-color: var(--white);
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
       }
-
-      .total-price {
+      .summary-title {
         font-size: 20px;
-        font-weight: 600;
         margin-bottom: 20px;
+        color: var(--secondary);
       }
-
-      .total-price span {
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .summary-total {
+        font-weight: 600;
+        font-size: 18px;
+        margin: 20px 0;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+      }
+      .summary-total span {
         color: var(--primary);
       }
-
-      .cart-actions {
-        display: flex;
-        gap: 15px;
-      }
-
-      .continue-shopping,
-      .checkout-btn,
-      .clear-cart {
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-weight: 500;
-        cursor: pointer;
-        text-decoration: none;
-      }
-
-      .continue-shopping {
-        background-color: var(--light);
-        color: var(--dark);
-        border: 1px solid var(--gray);
-      }
-
       .checkout-btn {
         background-color: var(--primary);
         color: var(--white);
+        padding: 12px;
         border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+      .checkout-btn:hover {
+        background-color: #006666;
+      }
+      .continue-shopping {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: var(--primary);
+        text-decoration: none;
       }
 
-      .clear-cart {
-        background-color: #ffebee;
-        color: #f44336;
+      /* Promo Code */
+      .promo-code {
+        margin: 20px 0;
+      }
+      .promo-input {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .promo-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .apply-btn {
+        background-color: var(--secondary);
+        color: white;
         border: none;
+        padding: 0 15px;
+        border-radius: 5px;
+        cursor: pointer;
       }
 
+      /* Suggested Products */
+      .suggested-products {
+        margin-top: 30px;
+      }
+      .suggested-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: var(--secondary);
+      }
+      .suggested-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      .suggested-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .suggested-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .suggested-details {
+        flex: 1;
+      }
+      .suggested-name {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .suggested-price {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .add-suggested {
+        background-color: var(--pastel);
+        color: var(--primary);
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      /* Empty Cart */
       .empty-cart {
         text-align: center;
         padding: 50px 0;
+        grid-column: 1 / -1;
       }
-
       .empty-cart p {
         margin-bottom: 20px;
         font-size: 18px;
       }
-
       .shop-btn {
         background-color: var(--primary);
         color: var(--white);
@@ -279,25 +341,21 @@
         padding: 40px 0;
         margin-top: 60px;
       }
-
       .footer-content {
         display: flex;
         flex-direction: column;
         gap: 40px;
       }
-
       @media (min-width: 768px) {
         .footer-content {
           flex-direction: row;
           justify-content: space-between;
         }
       }
-
       .footer-section h3 {
         font-size: 18px;
         margin-bottom: 20px;
       }
-
       .footer-section p,
       .footer-section a {
         color: #d1d1d1;
@@ -305,28 +363,51 @@
         display: block;
         text-decoration: none;
       }
-
       .footer-section a:hover {
         color: var(--white);
         text-decoration: underline;
       }
-
       .social-links {
         display: flex;
         gap: 15px;
       }
-
       .social-links a {
         color: var(--white);
         font-size: 20px;
       }
-
       .copyright {
         text-align: center;
         padding-top: 20px;
         margin-top: 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         color: #d1d1d1;
+      }
+
+      /* Notifications */
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--success);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: slideIn 0.3s, fadeOut 0.5s 2.5s forwards;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -355,6 +436,51 @@
           <div class="empty-cart">
             <p>Your cart is empty</p>
             <a href="products.html" class="shop-btn">Continue Shopping</a>
+          </div>
+        </div>
+
+        <!-- Order Summary Section (will be hidden when cart is empty) -->
+        <div id="order-summary" style="display: none">
+          <div class="order-summary">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="shipping">$5.99</span>
+            </div>
+            <div class="summary-row">
+              <span>Tax</span>
+              <span id="tax">$0.00</span>
+            </div>
+            <div class="promo-code">
+              <label for="promo">Promo Code</label>
+              <div class="promo-input">
+                <input type="text" id="promo" placeholder="Enter promo code" />
+                <button class="apply-btn" onclick="applyPromo()">Apply</button>
+              </div>
+              <div
+                id="promo-message"
+                style="font-size: 12px; color: var(--success); margin-top: 5px"
+              ></div>
+            </div>
+            <div class="summary-total">
+              <span>Total</span>
+              <span id="total">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+            <a href="products.html" class="continue-shopping"
+              >Continue Shopping</a
+            >
+
+            <div class="suggested-products">
+              <h4 class="suggested-title">Frequently Bought Together</h4>
+              <div id="suggested-items">
+                <!-- Suggested items will be loaded here -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -394,9 +520,56 @@
     </footer>
 
     <script>
+      // Sample product data
+      const products = [
+        {
+          id: 1,
+          name: "Wireless Headphones",
+          price: 99.99,
+          image:
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          id: 2,
+          name: "Smart Watch",
+          price: 199.99,
+          image:
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          id: 3,
+          name: "Bluetooth Speaker",
+          price: 79.99,
+          image:
+            "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          id: 4,
+          name: "Laptop Backpack",
+          price: 49.99,
+          image:
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          id: 5,
+          name: "Wireless Keyboard",
+          price: 59.99,
+          image:
+            "https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          id: 6,
+          name: "Fitness Tracker",
+          price: 89.99,
+          image:
+            "https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        },
+      ];
+
       document.addEventListener("DOMContentLoaded", function () {
         updateCartCount();
         renderCartItems();
+        loadSuggestedItems();
 
         // Event delegation for dynamic elements
         document
@@ -404,10 +577,22 @@
           .addEventListener("click", function (e) {
             if (
               e.target.classList.contains("quantity-btn") ||
-              e.target.classList.contains("remove-item") ||
-              e.target.classList.contains("clear-cart")
+              e.target.classList.contains("remove-item")
             ) {
               handleCartAction(e);
+            }
+          });
+
+        document
+          .getElementById("order-summary")
+          .addEventListener("click", function (e) {
+            if (e.target.classList.contains("add-suggested")) {
+              addSuggestedToCart(e);
+            }
+            if (e.target.classList.contains("checkout-btn")) {
+              alert(
+                "Proceeding to checkout! This would redirect to a checkout page in a real application."
+              );
             }
           });
       });
@@ -424,84 +609,91 @@
       function renderCartItems() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const cartContainer = document.getElementById("cart-container");
+        const orderSummary = document.getElementById("order-summary");
 
         if (cart.length === 0) {
           cartContainer.innerHTML = `
-                    <div class="empty-cart">
-                        <p>Your cart is empty</p>
-                        <a href="products.html" class="shop-btn">Continue Shopping</a>
-                    </div>
-                `;
+            <div class="empty-cart">
+              <p>Your cart is empty</p>
+              <a href="products.html" class="shop-btn">Continue Shopping</a>
+            </div>
+          `;
+          orderSummary.style.display = "none";
           return;
         }
 
+        orderSummary.style.display = "block";
+
         let cartHTML = `
-                <div class="cart-items">
-                    ${cart
-                      .map(
-                        (item) => `
-                        <div class="cart-item" data-id="${item.id}">
-                            <img src="${item.image}" alt="${
-                          item.name
-                        }" class="item-image">
-                            <div class="item-details">
-                                <h3 class="item-name">${item.name}</h3>
-                                <div class="item-price">$${item.price.toFixed(
-                                  2
-                                )}</div>
-                            </div>
-                            <div class="item-actions">
-                                <div class="quantity-control">
-                                    <button class="quantity-btn minus">-</button>
-                                    <span class="item-quantity">${
-                                      item.quantity
-                                    }</span>
-                                    <button class="quantity-btn plus">+</button>
-                                </div>
-                                <button class="remove-item">Remove</button>
-                            </div>
-                        </div>
-                    `
-                      )
-                      .join("")}
+          <div class="cart-items">
+            ${cart
+              .map(
+                (item) => `
+              <div class="cart-item" data-id="${item.id}">
+                <img src="${item.image}" alt="${item.name}" class="item-image">
+                <div class="item-details">
+                  <h3 class="item-name">${item.name}</h3>
+                  <div class="item-price">$${item.price.toFixed(2)}</div>
                 </div>
-                <div class="cart-summary">
-                    <div class="total-price">
-                        Total: <span>$${calculateTotal(cart).toFixed(2)}</span>
-                    </div>
-                    <div class="cart-actions">
-                        <a href="products.html" class="continue-shopping">Continue Shopping</a>
-                        <button class="clear-cart">Clear Cart</button>
-                        <button class="checkout-btn">Proceed to Checkout</button>
-                    </div>
+                <div class="item-actions">
+                  <div class="quantity-control">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button class="quantity-btn plus">+</button>
+                  </div>
+                  <button class="remove-item">Remove</button>
                 </div>
-            `;
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `;
 
         cartContainer.innerHTML = cartHTML;
+        updateOrderSummary(cart);
       }
 
-      function calculateTotal(cart) {
-        return cart.reduce(
+      function updateOrderSummary(cart) {
+        const subtotal = cart.reduce(
           (total, item) => total + item.price * item.quantity,
           0
         );
+        const shipping = 5.99;
+        const tax = subtotal * 0.08; // 8% tax
+        const total = subtotal + shipping + tax;
+
+        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(
+          2
+        )}`;
+        document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+        document.getElementById("total").textContent = `$${total.toFixed(2)}`;
+      }
+
+      function applyPromo() {
+        const promoCode = document.getElementById("promo").value;
+        const promoMessage = document.getElementById("promo-message");
+
+        if (promoCode.toUpperCase() === "SAVE10") {
+          promoMessage.textContent = "10% discount applied!";
+          // Here you would apply the discount to the total
+          showNotification("Promo code applied successfully!");
+        } else if (promoCode) {
+          promoMessage.textContent = "Invalid promo code";
+          promoMessage.style.color = "#f44336";
+        } else {
+          promoMessage.textContent = "Please enter a promo code";
+          promoMessage.style.color = "#f44336";
+        }
       }
 
       function handleCartAction(e) {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const itemElement = e.target.closest(".cart-item");
 
-        if (!itemElement) {
-          // Clear cart button
-          if (e.target.classList.contains("clear-cart")) {
-            localStorage.removeItem("cart");
-            renderCartItems();
-            updateCartCount();
-          }
-          return;
-        }
+        if (!itemElement) return;
 
-        const itemId = itemElement.dataset.id;
+        const itemId = parseInt(itemElement.dataset.id);
         const itemIndex = cart.findIndex((item) => item.id === itemId);
 
         if (itemIndex === -1) return;
@@ -509,21 +701,95 @@
         if (e.target.classList.contains("remove-item")) {
           // Remove item
           cart.splice(itemIndex, 1);
+          showNotification("Item removed from cart");
         } else if (e.target.classList.contains("minus")) {
           // Decrease quantity
           if (cart[itemIndex].quantity > 1) {
             cart[itemIndex].quantity--;
+            showNotification("Quantity decreased");
           } else {
             cart.splice(itemIndex, 1);
+            showNotification("Item removed from cart");
           }
         } else if (e.target.classList.contains("plus")) {
           // Increase quantity
           cart[itemIndex].quantity++;
+          showNotification("Quantity increased");
         }
 
         localStorage.setItem("cart", JSON.stringify(cart));
         renderCartItems();
         updateCartCount();
+      }
+
+      function loadSuggestedItems() {
+        const suggestedContainer = document.getElementById("suggested-items");
+        // Get 3 random products that aren't already in the cart
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartIds = cart.map((item) => item.id);
+        const availableProducts = products.filter(
+          (product) => !cartIds.includes(product.id)
+        );
+
+        // Shuffle array and get first 3
+        const shuffled = [...availableProducts].sort(() => 0.5 - Math.random());
+        const suggestedProducts = shuffled.slice(0, 3);
+
+        suggestedContainer.innerHTML = suggestedProducts
+          .map(
+            (product) => `
+          <div class="suggested-item" data-id="${product.id}">
+            <img src="${product.image}" alt="${
+              product.name
+            }" class="suggested-img">
+            <div class="suggested-details">
+              <div class="suggested-name">${product.name}</div>
+              <div class="suggested-price">$${product.price.toFixed(2)}</div>
+              <button class="add-suggested">Add to Cart</button>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      function addSuggestedToCart(e) {
+        const itemElement = e.target.closest(".suggested-item");
+        const productId = parseInt(itemElement.dataset.id);
+        const product = products.find((p) => p.id === productId);
+
+        if (!product) return;
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Check if product is already in cart
+        const existingItem = cart.find((item) => item.id === productId);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            ...product,
+            quantity: 1,
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCartItems();
+        updateCartCount();
+        loadSuggestedItems(); // Refresh suggestions
+        showNotification(`${product.name} added to cart!`);
+      }
+
+      function showNotification(message) {
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
       }
     </script>
   </body>
